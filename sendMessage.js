@@ -41,7 +41,7 @@ const sendMessage = messageToSend => {
             console.log(`WebSocket: closed`);
         };
     } catch (err) {
-        console.error(`WebSocket: ${err}`);
+        console.error(`sendMessage: ${err}`);
     }
 }
 
