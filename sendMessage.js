@@ -7,7 +7,7 @@ const websocketURL = "wss://va.msg.liveperson.net/ws_api/account/40912224/messag
 const sendMessage = messageToSend => {
     try {
         //Create SendMessage Connection
-        const webSocket = new WebSocket(websocketURL, null,
+        const _webSocket = new WebSocket(websocketURL, null,
             {
                 headers: {
                     Authorization: 'jwt ' + getJWT.getJWT(JWTurl)
@@ -16,28 +16,28 @@ const sendMessage = messageToSend => {
         );
 
         //Open SendMessage Connection
-        webSocket.onopen = () => {
-            webSocket.send('{"kind":"req","id":"1","type":"cm.ConsumerRequestConversation"}');
+        _webSocket.onopen = () => {
+            _webSocket.send('{"kind":"req","id":"1","type":"cm.ConsumerRequestConversation"}');
         }
 
         //OnMessage Received from SendMessage
-        webSocket.onmessage = (e) => {
+        _webSocket.onmessage = (e) => {
             const obj = JSON.parse(e.data);
             const conversationID = obj.body.conversationId;
-            webSocket.send('{"kind":"req","id":2,"type":"ms.PublishEvent","body":{"dialogId":"'
+            _webSocket.send('{"kind":"req","id":2,"type":"ms.PublishEvent","body":{"dialogId":"'
                 + conversationID + '","event":{"type":"ContentEvent","contentType":"text/plain","message":"'+messageToSend+'"}}}');
 
-            webSocket.close();
+            _webSocket.close();
         }
 
         //Error handling for SendMessage
-        webSocket.onerror = error => {
+        _webSocket.onerror = error => {
             console.error(`WebSocket error: ${error}`);
             console.log(`WebSocket error: ${error}`);
         }
 
         //WebSocket onClose
-        webSocket.onclose = () => {
+        _webSocket.onclose = () => {
             console.log(`WebSocket: closed`);
         };
     } catch (err) {
