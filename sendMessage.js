@@ -1,4 +1,4 @@
-const SendMessage = require('ws');
+const WebSocket = require('ws');
 const getJWT= require('./getJWT');
 
 const JWTurl = 'https://va.idp.liveperson.net/api/account/40912224/signup';
@@ -7,7 +7,7 @@ const websocketURL = "wss://va.msg.liveperson.net/ws_api/account/40912224/messag
 const sendMessage = messageToSend => {
     try {
         //Create SendMessage Connection
-        const webSocket = new SendMessage(websocketURL, null,
+        const webSocket = new WebSocket(websocketURL, null,
             {
                 headers: {
                     Authorization: 'jwt ' + getJWT.getJWT(JWTurl)
@@ -36,6 +36,7 @@ const sendMessage = messageToSend => {
             console.log(`WebSocket error: ${error}`);
         }
 
+        //WebSocket onClose
         webSocket.onclose = () => {
             console.log(`WebSocket: closed`);
         };
