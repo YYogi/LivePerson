@@ -12,13 +12,8 @@ const getJWT = JWTurl => {
         //Error handling if POST request fails
         const err = new Error(
           'getJWT: Server responded with status code ' +
-            this.statusCode +
-            ':\n' +
-            this.body.toString(encoding)
+            this.statusCode
         );
-        err.statusCode = this.statusCode;
-        err.headers = this.headers;
-        err.body = this.body;
         console.error(`getJWT: ${err}`);
         console.log(`getJWT: ${err}`);
         throw err;
