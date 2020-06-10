@@ -1,11 +1,11 @@
 const request = require('sync-request');
-const success = 200;
+const successStatusCode = 200;
 
 //Making POST request to get JWT
 const getJWT = JWTurl => {
-    const res = request('POST', JWTurl,null);
-    if (res.statusCode == success) {
-        const data = JSON.parse(res.getBody('utf8'));
+    const response = request('POST', JWTurl,null);
+    if (response.statusCode == successStatusCode) {
+        const data = JSON.parse(response.getBody('utf8'));
         return data.jwt;
     }
     else {
@@ -19,6 +19,8 @@ const getJWT = JWTurl => {
         err.statusCode = this.statusCode;
         err.headers = this.headers;
         err.body = this.body;
+        console.error(`getJWT: ${err}`);
+        console.log(`getJWT: ${err}`);
         throw err;
     }
 }
