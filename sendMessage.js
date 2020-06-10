@@ -46,5 +46,6 @@ const sendMessage = messageToSend => {
 }
 
 //Sending a sample test message!
+//TODO: Handle single quote and other exceptions while sending message
 sendMessage('Hello!! This is my first message');
 
