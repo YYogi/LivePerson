@@ -45,5 +45,6 @@ const sendMessage = messageToSend => {
     }
 }
 
+//Sending a sample test message!
 sendMessage('Hello!! This is my first message');
 
